@@ -3,17 +3,19 @@ import java.util.regex.Pattern;
 
 public class ValidaCPF{
     public static boolean isCPF(String CPF){
-        String regex = "(\\d{3}\\D\\d{3}\\D\\d{3}\\D\\d{2})";
-        String regex2 = "(\\d{11})";
+        String regex = "[0-9]{11}|[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}|[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}|[0-9]{2}";
         Matcher matcher = Pattern.compile(regex).matcher(CPF);
-        Matcher matcher2 = Pattern.compile(regex2).matcher(CPF);
-        if (!matcher.matches() && !matcher2.matches()){
+        String numeros = CPF.replaceAll("[^0-9]","");
+        if (numeros.matches("^(\\d)\\1*$")){//checa se todos os numeros são iguais
+            return false;
+        }
+        if (!matcher.matches()){//checa se o CPF está em algum dos padrões válidos
             return false;
         }
         int somaD1 = 0, contador = 0, somaD2 = 0;
         int indiceD10 = 0, indiceD11 = 0;
         for (int i = 0; i < CPF.length(); i++) {
-            if (Character.isAlphabetic(CPF.charAt(i))){
+            if (Character.isAlphabetic(CPF.charAt(i))){//checa se existe alguma letra no CPF enviado
                 return false;
             }
             if (Character.isDigit(CPF.charAt(i))){
@@ -47,5 +49,28 @@ public class ValidaCPF{
             return false;
         }
         return true;
+    }
+    public static long toLong(String CPF){
+        String str = CPF;
+        if (isCPF(CPF)){
+            str = str.replaceAll("[^0-9]","");
+        }
+        long toLong = Long.parseLong(str);
+        return toLong;
+    }
+    public static String format(String CPF){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < CPF.length(); i++) {
+            if (sb.length() == 3 || sb.length() == 7){
+                sb.append(".");
+            }
+            if (sb.length() == 11){
+                sb.append("-");
+            }
+            if (Character.isDigit(CPF.charAt(i))){
+                sb.append(CPF.charAt(i));
+            }
+        }
+        return sb.toString();
     }
 }
