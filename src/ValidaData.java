@@ -4,7 +4,7 @@ import java.util.GregorianCalendar;
 public class ValidaData {
     enum Meses{
         JANEIRO(1, "Janeiro"), FEVEREIRO(2, "Fevereiro"), MARCO(3, "Marco"), ABRIL(4,"Abril"), MAIO(5,"Maio"), JUNHO(6,"Junho"), JULHO(7,"Julho"), AGOSTO(8,"Agosto"), SETEMBRO(9,"Setembro"), OUTUBRO(10,"Outubro"), NOVEMBRO(11,"Novembro"), DEZEMBRO(12,"Dezembro");
-        private final int VALOR;
+        public final int VALOR;
         private final String NOME;
         Meses(int valor, String nome){
             this.VALOR = valor;
