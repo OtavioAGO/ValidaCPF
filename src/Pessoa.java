@@ -1,4 +1,5 @@
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Pessoa {
@@ -9,12 +10,18 @@ public class Pessoa {
     private Float peso;
     private Float altura;
 
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private static int CONTADOR;
 
     public Pessoa(String nome, String sobrenome, int dia, int mes, int ano) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        if (ValidaData.isDataValida(dia, mes, ano)){
+        if (nome.matches("^[a-zA-Z á]*$") && sobrenome.matches("^[a-zA-Z ]*$")){
+            this.nome = nome;
+            this.sobrenome = sobrenome;
+        }
+        else{
+            throw new IllegalArgumentException("Um nome não pode possuir digitos ou caracteres especiais.");
+        }
+        if (ValidaData.isDia(dia) && ValidaData.isMes(mes) && ValidaData.isAno(ano) && ValidaData.isDataValida(dia, mes, ano)){
             dataNasc = new GregorianCalendar(ano, mes, dia);
         }
         else{
@@ -23,9 +30,14 @@ public class Pessoa {
         CONTADOR += 1;
     }
     public Pessoa(String nome, String sobrenome, int dia, String mes, int ano) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        if (ValidaData.isDataValida(dia, mes, ano)){
+        if (nome.matches("^[a-zA-Z á]*$") && sobrenome.matches("^[a-zA-Z ]*$")){
+            this.nome = nome;
+            this.sobrenome = sobrenome;
+        }
+        else{
+            throw new IllegalArgumentException("Um nome não pode possuir digitos ou caracteres especiais.");
+        }
+        if (ValidaData.isDia(dia) && ValidaData.isMes(mes) && ValidaData.isAno(ano) && ValidaData.isDataValida(dia, mes, ano)){
             int mesInt = ValidaData.Meses.checaNome(mes).VALOR;
             dataNasc = new GregorianCalendar(ano, mesInt-1, dia);
         }
@@ -35,9 +47,14 @@ public class Pessoa {
         CONTADOR += 1;
     }
     public Pessoa(String nome, String sobrenome, int dia, int mes, int ano, long numCPF, float peso, float altura){
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        if (ValidaData.isDataValida(dia, mes, ano)){
+        if (nome.matches("^[a-zA-Z á]*$") && sobrenome.matches("^[a-zA-Z ]*$")){
+            this.nome = nome;
+            this.sobrenome = sobrenome;
+        }
+        else{
+            throw new IllegalArgumentException("Um nome não pode possuir digitos ou caracteres especiais.");
+        }
+        if (ValidaData.isDia(dia) && ValidaData.isMes(mes) && ValidaData.isAno(ano) && ValidaData.isDataValida(dia, mes, ano)){
             dataNasc = new GregorianCalendar(ano, mes, dia);
         }
         else{
@@ -49,9 +66,14 @@ public class Pessoa {
         CONTADOR += 1;
     }
     public Pessoa(String nome, String sobrenome, int dia, String mes, int ano, long numCPF, float peso, float altura) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        if (ValidaData.isDataValida(dia, mes, ano)){
+        if (nome.matches("^[a-zA-Z á]*$") && sobrenome.matches("^[a-zA-Z ]*$")){
+            this.nome = nome;
+            this.sobrenome = sobrenome;
+        }
+        else{
+            throw new IllegalArgumentException("Um nome não pode possuir digitos ou caracteres especiais.");
+        }
+        if (ValidaData.isDia(dia) && ValidaData.isMes(mes) && ValidaData.isAno(ano) && ValidaData.isDataValida(dia, mes, ano)){
             int mesInt = ValidaData.Meses.checaNome(mes).VALOR;
             dataNasc = new GregorianCalendar(ano, mesInt-1, dia);
         }
@@ -80,8 +102,14 @@ public class Pessoa {
         this.sobrenome = sobrenome;
     }
 
-    public GregorianCalendar getDataNasc() {
-        return dataNasc;
+    public String getDataNasc() {
+        return sdf.format(dataNasc.getTime());
+    }
+    protected int idade(){
+        Calendar c = new GregorianCalendar();
+        int anoAtual = c.get(Calendar.YEAR);
+        int anoNasc = dataNasc.get(Calendar.YEAR);
+        return anoAtual - anoNasc;
     }
     public long getNumCPF() {
         return numCPF;
@@ -105,7 +133,6 @@ public class Pessoa {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Nome: "+nome+" "+sobrenome+"\n");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sb.append("Data de Nascimento: "+sdf.format(dataNasc.getTime())+"\n");
         if (numCPF != null && peso != null && altura != null){
             sb.append("CPF: "+numCPF+"\n");

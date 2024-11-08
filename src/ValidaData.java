@@ -10,6 +10,9 @@ public class ValidaData {
             this.VALOR = valor;
             this.NOME = nome;
         }
+        public int getVALOR(){
+            return VALOR;
+        }
         public static Meses checaValor(int VALOR){
             for (Meses m : values()){
                 if (m.VALOR == VALOR){
@@ -27,14 +30,19 @@ public class ValidaData {
             return null;
         }
     }
-    public static boolean isDia(String dia){
-        if (dia.startsWith("0")){
-            dia = dia.replaceFirst("0","");
+    public static boolean isDia(int dia){
+        String diaStr = String.valueOf(dia);
+        if (diaStr.startsWith("0")){
+            diaStr = diaStr.replaceFirst("0","");
         }
-        int diaInteiro = Integer.parseInt(dia);
-        return diaInteiro >= 1 && diaInteiro <= 31;
+        dia = Integer.parseInt(diaStr);
+        return dia >= 1 && dia <= 31;
     }
     public static boolean isMes(int mes){
+        String mesStr = String.valueOf(mes);
+        if (mesStr.startsWith("0")){
+            mesStr = mesStr.replaceFirst("0","");
+        }
         return Meses.checaValor(mes) != null;
     }
     public static boolean isMes(String mes){
@@ -59,7 +67,7 @@ public class ValidaData {
     }
     public static boolean isDataValida(int dia, String mes, int ano){
         Calendar c = new GregorianCalendar();
-        int mesInt = Meses.checaNome(mes).VALOR;
+        int mesInt = Meses.checaNome(mes).getVALOR();
         c.setLenient(false);
         c.set(ano, mesInt-1, dia);
         try {
