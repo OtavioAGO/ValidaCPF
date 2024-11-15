@@ -20,6 +20,6 @@ public class Homem extends Pessoa{
 
     @Override
     public String toString() {
-        return super.toString()+"Genero: Homem\nIdade:"+idade();
+        return super.toString()+"Genero: Masculino\nIdade:"+idade();
     }
 }

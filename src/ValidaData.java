@@ -38,15 +38,16 @@ public class ValidaData {
         dia = Integer.parseInt(diaStr);
         return dia >= 1 && dia <= 31;
     }
-    public static boolean isMes(int mes){
-        String mesStr = String.valueOf(mes);
-        if (mesStr.startsWith("0")){
-            mesStr = mesStr.replaceFirst("0","");
-        }
-        return Meses.checaValor(mes) != null;
-    }
     public static boolean isMes(String mes){
-        return Meses.checaNome(mes) != null;
+        if (mes.startsWith("0")){
+            mes = mes.replaceFirst("0","");
+        }
+        if (Character.isDigit(mes.charAt(0))){
+           return Meses.checaValor(Integer.parseInt(mes)) != null;
+        }
+        else{
+            return Meses.checaNome(mes) != null;
+        }
     }
     public static boolean isAno(int ano){
         Calendar calendar = new GregorianCalendar();
