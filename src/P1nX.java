@@ -19,15 +19,15 @@ public class P1nX {
             }
             float peso = Float.parseFloat(args[7]);
             float altura = Float.parseFloat(args[8]);
-            if ((args[0].equalsIgnoreCase("Masculino") || args[0].charAt(0) == 'm' || args[0].charAt(0) == 'M') && !mes.matches("[a-zA-Z]+")) {
+            if ((args[0].equalsIgnoreCase("Masculino") || args[0].equalsIgnoreCase("m"))&& !mes.matches("[a-zA-Z]+")) {
                 mesInt = Integer.parseInt(args[4]);
                 p = new Homem(args[1], args[2], dia, mesInt, ano, cpf, peso, altura);
-            } else if ((args[0].equalsIgnoreCase("Feminino") || args[0].charAt(0) == 'f' || args[0].charAt(0) == 'F') && !mes.matches("[a-zA-Z]+")) {
+            } else if ((args[0].equalsIgnoreCase("Feminino") || args[0].equalsIgnoreCase("f")) && !mes.matches("[a-zA-Z]+")) {
                 mesInt = Integer.parseInt(args[4]);
                 p = new Mulher(args[1], args[2], dia, mesInt, ano, cpf, peso, altura);
-            } else if (args[0].equalsIgnoreCase("Masculino")) {
+            } else if ((args[0].equalsIgnoreCase("Masculino") || args[0].equalsIgnoreCase("m"))) {
                 p = new Homem(args[1], args[2], dia, mes, ano, cpf, peso, altura);
-            } else if (args[0].equalsIgnoreCase("Feminino")) {
+            } else if (args[0].equalsIgnoreCase("Feminino")|| args[0].equalsIgnoreCase("f")) {
                 p = new Mulher(args[1], args[2], dia, mes, ano, cpf, peso, altura);
             } else {
                 throw new Exception("Genero Invalido");
